@@ -8,14 +8,8 @@ on:
 
 jobs:
 
-  build:
 
-    runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file cupsd/Dockerfile.stable --tag cupsd-airprint:stable-$(date +%s)
 
       # push to dockerhub
    # - name: Publish to Dockerhub
@@ -38,6 +32,8 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v4
+      #- name: Build the Docker image
+      #  run: docker build . --file ${{ matrix.target }}/Dockerfile.stable --tag ${{ matrix.target }}:stable-$(date +%s)
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
@@ -47,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          file: /${{ matrix.target }}/Dockerfile
+          file: ${{ matrix.target }}/Dockerfile.stable
           build-args: OMD_VERSION=${{ env.BRANCH_NAME }}
           tags: |
             yetio/${{ matrix.target }}:stable
