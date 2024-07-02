@@ -16,3 +16,9 @@ jobs:
     - uses: actions/checkout@v4
     - name: Build the Docker image
       run: docker build . --file cupsd/Dockerfile.stable --tag cupsd-airprint:stable-$(date +%s)
+
+      # push to dockerhub
+    - name: Publish to Dockerhub
+      run: |
+        echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        docker push yetio/cupsd-airprint
