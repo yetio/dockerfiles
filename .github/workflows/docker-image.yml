@@ -48,4 +48,4 @@ jobs:
           tags: |
             yetio/${{ matrix.target }}:stable
             yetio/${{ matrix.target }}:latest
-          platforms: linux/amd64,linux/arm64
+          platforms: linux/amd64
